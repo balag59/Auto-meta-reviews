@@ -1,8 +1,11 @@
 require 'rubygems'
+gem 'wordnet', '=1.1.0'
 require 'wordnet'
+gem 'wordnet-defaultdb', '=2.0.0'
+require 'wordnet-defaultdb'
 require 'ffi/aspell'
 require 'engtagger'
-gem 'stanford-core-nlp', '=0.5.1'
+gem 'stanford-core-nlp', '=0.5.3'
 require 'stanford-core-nlp'
 gem 'rjb', "=1.4.9"
 require 'rjb'
@@ -75,7 +78,7 @@ class MetareviewgeneratorController < ApplicationController
     review_array=Array.new
     submission=Array.new
     review_array[0] = params[:reviews]
-    
+
 
     #iterate over each input and generate output
     for i in (0..review_array.length - 1)

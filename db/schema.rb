@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -13,16 +12,16 @@
 
 ActiveRecord::Schema.define(version: 20150408075206) do
 
-  create_table "negative_words", force: true do |t|
-    t.text     "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "negative_words", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "positive_words", force: true do |t|
-    t.text     "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "positive_words", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
