@@ -2,7 +2,7 @@ require 'rubygems'
 require 'wordnet'
 require 'ffi/aspell'
 require 'engtagger'
-gem 'stanford-core-nlp', '=0.5.1'
+gem 'stanford-core-nlp', '=0.5.3'
 require 'stanford-core-nlp'
 gem 'rjb', "=1.4.9"
 require 'rjb'
@@ -80,7 +80,7 @@ class Automated_Metareview
       #generating review's graph
       g.generate_graph(review_text, pos_tagger, core_NLP_tagger, true, false)
       review_graph = g.clone
-      
+
       content_instance = PredictClass.new
       pattern_files_array = ["app/data/patterns-assess.csv","app/data/patterns-prob-detect.csv","app/data/patterns-suggest.csv"]
       #predcting class - last parameter is the number of classes
@@ -176,9 +176,9 @@ class Automated_Metareview
     feature_values = Hash.new #contains the values for each of the metareview features calculated
     preprocess = TextPreprocessing.new
 
-    #fetch the review data as an array 
-    @review_array = review 
-    
+    #fetch the review data as an array
+    @review_array = review
+
     # puts "self.responses #{self.responses}"
     speller = FFI::Aspell::Speller.new('en_US')
     # speller.suggestion_mode = Aspell::NORMAL
@@ -190,7 +190,7 @@ class Automated_Metareview
 
     if(result_comparison == ALL_RESPONSES_PLAGIARISED)
       content_summative = 0
-      content_problem = 0 
+      content_problem = 0
       content_advisory =  0
       relevance = 0
       quantity = 0
@@ -234,17 +234,17 @@ class Automated_Metareview
       #removing quoted text from reviews
       review_text = preprocess.remove_text_within_quotes(review_text) #review_text is an array
       puts "review_text #{review_text}"
-      #fetching submission data as an array and segmenting them at punctuations    
+      #fetching submission data as an array and segmenting them at punctuations
       submissions = submission
       subm_text = preprocess.check_correct_spellings(submissions, speller)
       subm_text = preprocess.segment_text(0, subm_text)
       subm_text = preprocess.remove_text_within_quotes(subm_text)
       puts "subm_text #{subm_text}"
-      # #initializing the pos tagger and nlp tagger/semantic parser  
+      # #initializing the pos tagger and nlp tagger/semantic parser
       pos_tagger = EngTagger.new
       core_NLP_tagger =  StanfordCoreNLP.load(:tokenize, :ssplit, :pos, :lemma, :parse, :ner, :dcoref)
-      
-      #---------    
+
+      #---------
       #relevance
       beginning_time = Time.now
       relev = DegreeOfRelevance.new
@@ -254,7 +254,7 @@ class Automated_Metareview
       #calculating end time
       end_time = Time.now
       relevance_time = end_time - beginning_time
-      #---------    
+      #---------
       # checking for plagiarism
       if(plagiarism != true) #if plagiarism hasn't already been set
         beginning_time = Time.now
@@ -268,7 +268,7 @@ class Automated_Metareview
         plagiarism_time = end_time - beginning_time
         puts "************* plagiarism time taken - #{plagiarism_time}"
       end
-      #---------      
+      #---------
       #content
       beginning_time = Time.now
       content_instance = PredictClass.new
@@ -287,13 +287,13 @@ class Automated_Metareview
       return feature_values
       puts "************* content time taken - #{content_time}"
 #      puts "*************"
-      #---------    
+      #---------
       #coverage
       cover = ReviewCoverage.new
       coverage = cover.calculate_coverage(subm_text, review_text, pos_tagger, core_NLP_tagger, speller)
 #      puts "************* coverage - #{coverage}"
 #      puts "*************"
-      #---------    
+      #---------
       # tone
       beginning_time = Time.now
       ton = Tone.new
@@ -313,9 +313,9 @@ class Automated_Metareview
       quant = TextQuantity.new
       quantity = quant.number_of_unique_tokens(review_text)
       end_time = Time.now
-      quantity_time = end_time - beginning_time     
+      quantity_time = end_time - beginning_time
       puts "************* quantity time taken - #{quantity_time}"
-      
+
       feature_values["plagiarism"] = plagiarism
       feature_values["relevance"] = relevance
       feature_values["content_summative"] = content_summative
@@ -330,6 +330,3 @@ class Automated_Metareview
     end
   end #end of calculate_metareview_metrics method
 end #end of class
-
-
-

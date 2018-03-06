@@ -20,10 +20,10 @@ require 'tone'
 require 'text_quantity'
 require 'constants'
 require 'review_coverage'
-class MetareviewgeneratorController < ApplicationController    
+class MetareviewgeneratorController < ApplicationController
   #skip_before_filter  :verify_authenticity_token
-  #skip_before_action  :verify_authenticity_token
-  protect_from_forgery with: :exception
+  skip_before_action  :verify_authenticity_token
+  #protect_from_forgery with: :exception
   respond_to :json
   swagger_controller :Metareviewgenerator, 'Post'
   swagger_api :create do
