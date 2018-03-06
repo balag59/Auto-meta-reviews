@@ -46,3 +46,5 @@ gem 'stanford-core-nlp', '=0.5.3'
 gem 'rjb', "=1.4.9"
 gem 'bind-it', "=0.2.7"
 gem 'edavis10-ruby-web-search'
+gem 'responders'
+gem 'swagger-docs'

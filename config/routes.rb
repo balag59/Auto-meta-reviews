@@ -1,4 +1,5 @@
-Rails.application.routes.draw do
+
+Rails.application.routes.draw do  
    # get 'metareviewgenerator/AutomatedMetareview'
   #match 'metareviewgenerator', to: 'metareviewgenerator#AutomatedMetareview', via: [:get]
   resource :metareviewgenerator do
